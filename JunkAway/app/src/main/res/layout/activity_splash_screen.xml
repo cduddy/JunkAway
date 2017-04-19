@@ -19,14 +19,14 @@
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/common_google_signin_btn_text_dark_default"
-            android:adjustViewBounds="true"
-            app:srcCompat="@mipmap/junkawaylogotext"
-            android:layout_marginTop="91dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="91dp"
+            android:adjustViewBounds="true"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            app:srcCompat="@mipmap/junkawaylogotext" />
 
     </RelativeLayout>
 </RelativeLayout>
