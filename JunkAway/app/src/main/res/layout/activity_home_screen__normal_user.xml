@@ -11,7 +11,8 @@
     <include
         layout="@layout/app_bar_home_screen__normal_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -19,6 +20,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:visibility="gone"
         app:headerLayout="@layout/nav_header_home_screen__normal_user"
         app:menu="@menu/activity_home_screen__normal_user_drawer" />
 

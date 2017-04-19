@@ -523,11 +523,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }
                 if(user.getJJ()) {
-                    Intent intent = new Intent(LoginActivity.this, JunkDriver_HomeScreen.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeScreen_JunkDriver.class);
                     intent.putExtra("User", user);
                     startActivity(intent);
                     LoginActivity.this.finish();
-                    //new AsyncGetUser().execute(email);
+
                 }else
                 {
                     Intent intent = new Intent(LoginActivity.this,HomeScreen_NormalUser.class);
