@@ -12,7 +12,9 @@
     tools:context="com.JunkAway.SplashScreen">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
 
         <ImageView
@@ -21,8 +23,8 @@
             android:layout_height="wrap_content"
             android:background="@color/common_google_signin_btn_text_dark_default"
             android:adjustViewBounds="true"
-            app:srcCompat="@mipmap/JunkAway_Logo_Text"
-            android:layout_marginTop="146dp"
+            app:srcCompat="@mipmap/junkawaylogotext"
+            android:layout_marginTop="91dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 
