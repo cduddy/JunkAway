@@ -15,7 +15,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name">
@@ -29,16 +28,8 @@
         <activity android:name=".ForgotPassword" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".JunkDriverRegister" />
-        <activity
-            android:name=".HomeScreen_NormalUser"
-            android:label="@string/title_activity_home_screen__normal_user"
-            android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.JunkAway.LoginActivity" />
-        </activity>
-        <activity android:name=".HomeScreen_JunkDriver"></activity>
+        <activity android:name=".JunkDriver_HomeScreen" />
+        <activity android:name=".NormalUser_HomeScreen"></activity>
     </application>
 
 </manifest>

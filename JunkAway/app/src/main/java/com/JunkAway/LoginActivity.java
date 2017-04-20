@@ -80,11 +80,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private View mForgotCreate;
     private SignInButton login;
     private TextView name;
     private GoogleApiClient googleApiClient;
     private GoogleSignInOptions signInOptions;
-    private HomeScreen_NormalUser home;
+    private NormalUser_HomeScreen home;
     private RegisterUser createUser;
     private ForgotPassword forgotPassword;
     private User user;
@@ -134,6 +135,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        mForgotCreate = findViewById(R.id.forgot_create_op);
 
         signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
@@ -167,9 +169,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void loginSuccess()
     {
         LoginActivity.this.finish();
-        Intent homeintent = new Intent(this, HomeScreen_NormalUser.class);
+        Intent homeintent = new Intent(this, NormalUser_HomeScreen.class);
         homeintent.putExtra("User",user);
-        home = new HomeScreen_NormalUser();
+        home = new NormalUser_HomeScreen();
         startActivity(homeintent);
     }
     private void populateAutoComplete() {
@@ -307,7 +309,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
-
+            mForgotCreate.setVisibility(show ? View.GONE : View.VISIBLE);
+            mForgotCreate.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mForgotCreate.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -321,6 +330,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mForgotCreate.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -523,14 +533,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 }
                 if(user.getJJ()) {
-                    Intent intent = new Intent(LoginActivity.this, HomeScreen_JunkDriver.class);
+                    Intent intent = new Intent(LoginActivity.this, JunkDriver_HomeScreen.class);
                     intent.putExtra("User", user);
                     startActivity(intent);
                     LoginActivity.this.finish();
 
                 }else
                 {
-                    Intent intent = new Intent(LoginActivity.this,HomeScreen_NormalUser.class);
+                    Intent intent = new Intent(LoginActivity.this,NormalUser_HomeScreen.class);
                     intent.putExtra("User",user);
                     startActivity(intent);
                     LoginActivity.this.finish();
