@@ -88,35 +88,36 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/forgot_create_op"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
-                android:text="Forgot Your Password?"
+                android:id="@+id/buttonForgotPassword"
                 android:layout_width="198dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonForgotPassword"
                 android:background="@android:color/transparent"
-                android:textColor="#838b83"/>
+                android:text="Forgot Your Password?"
+                android:textColor="#838b83" />
 
             <TextView
-                android:text=" /  "
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
                 android:layout_weight="1"
-                android:gravity="center_horizontal" />
+                android:gravity="center_horizontal"
+                android:text=" /  " />
 
             <Button
+                android:id="@+id/buttonCreateAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/buttonCreateAccount"
-                android:textColor="#838b83"
                 android:background="@android:color/transparent"
+                android:gravity="left|center_vertical|center_horizontal"
                 android:text="Need an account?"
 
-                android:gravity="left|center_vertical|center_horizontal" />
+                android:textColor="#838b83" />
 
         </LinearLayout>
     </LinearLayout>
