@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             }
         });
+        getSupportActionBar().hide();
         final Button registerUserButton = (Button) findViewById(R.id.buttonCreateAccount);
         registerUserButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -499,6 +500,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //this method will be running on UI thread
             //System.out.println(result.toString());
             pdLoading.dismiss();
+            showProgress(false);
             if (result.equalsIgnoreCase("false")){
 
                 // If username and password does not match display a error message
@@ -536,14 +538,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent intent = new Intent(LoginActivity.this, JunkDriver_HomeScreen.class);
                     intent.putExtra("User", user);
                     startActivity(intent);
-                    LoginActivity.this.finish();
+                    //LoginActivity.this.finish();
 
                 }else
                 {
                     Intent intent = new Intent(LoginActivity.this,NormalUser_HomeScreen.class);
                     intent.putExtra("User",user);
                     startActivity(intent);
-                    LoginActivity.this.finish();
+                    //LoginActivity.this.finish();
                 }
             }
         }

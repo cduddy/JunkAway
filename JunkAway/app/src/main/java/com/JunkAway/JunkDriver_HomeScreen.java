@@ -33,7 +33,7 @@ public class JunkDriver_HomeScreen extends AppCompatActivity {
                 //createUser();
             }
         });
-
+        getSupportActionBar().hide();
         Button mCompletedJobs = (Button) findViewById(R.id.buttonCompletedJobs);
         mCompletedJobs.setOnClickListener(new View.OnClickListener() {
             @Override

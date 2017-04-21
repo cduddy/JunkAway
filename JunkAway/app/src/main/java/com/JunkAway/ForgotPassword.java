@@ -54,6 +54,7 @@ public class ForgotPassword extends AppCompatActivity {
             }
         });
         mResetFormView = findViewById(R.id.register_form);
+        getSupportActionBar().hide();
         mProgressView = findViewById(R.id.login_progress);
     }
     public void attemptRecover() {// Reset errors.

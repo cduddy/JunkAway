@@ -22,7 +22,10 @@ public class NormalUser_HomeScreen extends AppCompatActivity {
         mCreateRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attemptLogin();
+                Intent intent = new Intent(NormalUser_HomeScreen.this,CreateRequest.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
+                //LoginActivity.this.finish();
             }
         });
         Button mViewRequests = (Button) findViewById(R.id.buttonActiveRequests);
@@ -32,7 +35,7 @@ public class NormalUser_HomeScreen extends AppCompatActivity {
                //createUser();
             }
         });
-
+        getSupportActionBar().hide();
         Button mCompletedRequests = (Button) findViewById(R.id.buttonCompleteRequests);
         mCompletedRequests.setOnClickListener(new View.OnClickListener() {
             @Override

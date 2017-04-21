@@ -29,7 +29,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".JunkDriverRegister" />
         <activity android:name=".JunkDriver_HomeScreen" />
-        <activity android:name=".NormalUser_HomeScreen"></activity>
+        <activity android:name=".NormalUser_HomeScreen" />
+        <activity android:name=".CreateRequest"></activity>
     </application>
 
 </manifest>

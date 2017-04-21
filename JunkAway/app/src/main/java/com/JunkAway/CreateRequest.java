@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -30,97 +31,118 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class JunkDriverRegister extends AppCompatActivity {
-
-    private EditText mPhone;
-    private EditText mAddress;
+public class CreateRequest extends AppCompatActivity {
+    private EditText mDropOffLocation;
+    private EditText mPickupLocation;
+    private Spinner mNumItems;
+    private EditText mPrice;
+    private EditText mDescription;
+    private EditText mDate;
     private Button submit;
-    private View mResetFormView;
+    private View mRequestForm;
     private View mProgressView;
+    private View mNumItemsView;
     private User user;
-    private CheckBox checkCar;
-    private CheckBox checkTruck;
-    private CheckBox checkSUV;
-    public static final int CONNECTION_TIMEOUT = 10000;
-    public static final int READ_TIMEOUT = 15000;
-    String email;
-    String fname;
-    String lname;
-    String vehicle;
-
+    public static final int CONNECTION_TIMEOUT=10000;
+    public static final int READ_TIMEOUT=15000;
+    String pickup;
+    String dropoff;
+    String description;
+    String date;
+    double price;
+    int numItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_junk_driver_register);
+        setContentView(R.layout.activity_create_request);
         Intent i = getIntent();
-        user = (User) i.getSerializableExtra("User");
+        user = (User)i.getSerializableExtra("User");
         getSupportActionBar().hide();
-        email = user.get_email();
-        fname = user.get_fname();
-        lname = user.get_lname();
-        mPhone = (EditText) findViewById(R.id.phonenumber);
-        mAddress = (EditText) findViewById(R.id.address);
-        checkCar = (CheckBox) findViewById(R.id.checkCar);
-        checkCar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkSUV.setChecked(false);
-                checkTruck.setChecked(false);
-            }
-        });
-        checkTruck = (CheckBox) findViewById(R.id.checkTruck);
-        checkTruck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkSUV.setChecked(false);
-                checkCar.setChecked(false);
-            }
-        });
-        checkSUV = (CheckBox) findViewById(R.id.checkSUV);
-        checkSUV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkCar.setChecked(false);
-                checkTruck.setChecked(false);
-            }
-        });
+        mDropOffLocation = (EditText) findViewById(R.id.dropoffLocation);
+        mPickupLocation = (EditText) findViewById(R.id.pickupLocation);
+        mNumItems = (Spinner) findViewById(R.id.numItems);
+        mPrice = (EditText) findViewById(R.id.price);
+        mDescription = (EditText) findViewById(R.id.description);
+        mDate = (EditText) findViewById(R.id.dateRequested);
         submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setVehicleType();
-                attemptJunkDriverRegister();
+                attemptRequestCreate();
             }
         });
-        mResetFormView = findViewById(R.id.register_form);
+        mRequestForm = findViewById(R.id.request_form);
         mProgressView = findViewById(R.id.login_progress);
-
+        mNumItemsView = findViewById(R.id.SelectNum);
     }
-
-    public void attemptJunkDriverRegister() {// Reset errors.
-        mAddress.setError(null);
-        mPhone.setError(null);
-
+    public void attemptRequestCreate()
+    {// Reset errors.
+        mDropOffLocation.setError(null);
+        mPickupLocation.setError(null);
+        //mNumItems.setError(null);
+        mPrice.setError(null);
+        mDescription.setError(null);
+        mDate.setError(null);
         // Store values at the time of the login attempt.
-        String phone = mPhone.getText().toString();
-        String address = mAddress.getText().toString();
+        pickup=mPickupLocation.getText().toString();
+        dropoff=mDropOffLocation.getText().toString();
+        description=mDescription.getText().toString();
+        String stringprice= mPrice.getText().toString();
+        date=mDate.getText().toString();
 
-        boolean cancel = false;
         View focusView = null;
+        boolean cancel = false;
+        /*if(mNumItems.isSelected()) {
+            numItems = Integer.parseInt(mNumItems.getSelectedItem().toString());
 
+        }
+        else
+        {
+            focusView = mNumItemsView;
+            cancel=true;
+        }*/
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(phone) && !isPhoneValid(phone)) {
-            mPhone.setError("Invalid phone number entered");
-            focusView = mPhone;
+        numItems = Integer.parseInt(mNumItems.getSelectedItem().toString());
+        if (TextUtils.isEmpty(dropoff)) {
+            mDropOffLocation.setError("Please enter a Drop-off Location");
+            focusView = mDropOffLocation;
             cancel = true;
         }
-        if (TextUtils.isEmpty(address)) {
-            mAddress.setError(getString(R.string.error_field_required));
-            focusView = mAddress;
+        if (TextUtils.isEmpty(pickup)) {
+        mPickupLocation.setError("Please enter a Pickup Location");
+        focusView = mPickupLocation;
+        cancel = true;
+        }
+        if (TextUtils.isEmpty(date)) {
+            mDate.setError("Please enter a date.");
+            focusView = mDate;
             cancel = true;
         }
-
-
+        if (TextUtils.isEmpty(Double.toString(price)))
+        {
+            mPrice.setError("Please enter an offered price.");
+            focusView = mPrice;
+            cancel = true;
+        }
+        else
+        {
+            try
+            {
+                price = Double.parseDouble(stringprice); // Make use of autoboxing.  It's also easier to read.
+            }
+            catch (NumberFormatException e)
+            {
+                mPrice.setError("Please a valid price, including decimal, and cents");
+                focusView = mPrice;
+                cancel = true;
+            }
+        }
+        if (TextUtils.isEmpty(description))
+        {
+            mDescription.setError("Please give your request a description.");
+            focusView = mDescription;
+            cancel = true;
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -131,13 +153,12 @@ public class JunkDriverRegister extends AppCompatActivity {
             showProgress(true);
             //user.registerUser(fname,lname,email,password);
             // Initialize  AsyncLogin() class with email and password
-            new JunkDriverRegister.AsyncJunkDriverRegister().execute(fname, lname, email, address, phone,vehicle);
+            String Itemcount = Integer.toString(numItems);
+            String GivenPrice = Double.toString(price);
+            new CreateRequest.AsyncCreateRequest().execute(user.get_email(),pickup,dropoff,Itemcount,GivenPrice,date,description);//,numItems,price);
 
         }
-
-
     }
-
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -146,12 +167,12 @@ public class JunkDriverRegister extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mResetFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mResetFormView.animate().setDuration(shortAnimTime).alpha(
+            mRequestForm.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRequestForm.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mResetFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                    mRequestForm.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
 
@@ -167,35 +188,11 @@ public class JunkDriverRegister extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mResetFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mRequestForm.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
-    private boolean isPhoneValid(String phone) {
-        if (phone.length() == 10) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    private void setVehicleType()
-    {
-        if(checkCar.isChecked())
-        {
-            vehicle="Car";
-        }
-        else if (checkSUV.isChecked())
-        {
-            vehicle="SUV";
-        }
-        else
-        {
-            vehicle="Truck";
-        }
-    }
-
-    private class AsyncJunkDriverRegister extends AsyncTask<String, String, String> {
-        ProgressDialog pdLoading = new ProgressDialog(JunkDriverRegister.this);
+    private class AsyncCreateRequest extends AsyncTask<String, String, String> {
+        ProgressDialog pdLoading = new ProgressDialog(CreateRequest.this);
         HttpURLConnection conn;
         URL url = null;
 
@@ -219,7 +216,7 @@ public class JunkDriverRegister extends AppCompatActivity {
                 String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
                 System.out.print(ip);
                 // Enter URL address where your php file resides
-                url = new URL("https://people.eecs.ku.edu/~cduddy/JunkAway/RegisterJunkDriver.php");
+                url = new URL("https://people.eecs.ku.edu/~cduddy/JunkAway/CreateRequest.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -239,17 +236,18 @@ public class JunkDriverRegister extends AppCompatActivity {
 
                 // Append parameters to URL
                 Uri.Builder builder = new Uri.Builder()
-                        .appendQueryParameter("FirstName", params[0])
-                        .appendQueryParameter("LastName", params[1])
-                        .appendQueryParameter("Email", params[2])
-                        .appendQueryParameter("Phone", params[3])
-                        .appendQueryParameter("Address", params[4])
-                        .appendQueryParameter("Vehicle", params[5]);
+                        .appendQueryParameter("Email", params[0])
+                        .appendQueryParameter("Pickup", params[1])
+                        .appendQueryParameter("Dropoff", params[2])
+                        .appendQueryParameter("ItemCount", params[3])
+                        .appendQueryParameter("Price", params[4])
+                        .appendQueryParameter("Date", params[5])
+                        .appendQueryParameter("Description", params[6]);
                 String query = builder.build().getEncodedQuery();
                 //user = new User(params[0]);
 
                 // Open connection for sending data
-                OutputStream os = conn.getOutputStream();
+                OutputStream os = conn.getOutputStream();//broken
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(query);
@@ -306,33 +304,30 @@ public class JunkDriverRegister extends AppCompatActivity {
             System.out.println(result);
             pdLoading.dismiss();
 
-            if(result.equalsIgnoreCase("true"))
-            {
+            if (result.equalsIgnoreCase("false")) {
                 /* Here launching another activity when login successful. If you persist login state
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
-                Toast.makeText(JunkDriverRegister.this, "Junk Driver Profile Creation Successful", Toast.LENGTH_LONG).show();
-
-                Intent intent = new Intent(JunkDriverRegister.this, LoginActivity.class);
+                Toast.makeText(CreateRequest.this, "Database create issue.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CreateRequest.this, CreateRequest.class);
                 startActivity(intent);
-                JunkDriverRegister.this.finish();
+                CreateRequest.this.finish();
 
-            }else if (result.equalsIgnoreCase("false")){
+            }else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
-                // If username and password does not match display a error message
-                Toast.makeText(JunkDriverRegister.this, "Database issue, try becoming a driver later", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(JunkDriverRegister.this,LoginActivity.class);
+                Toast.makeText(CreateRequest.this, "Oops! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CreateRequest.this,LoginActivity.class);
                 startActivity(intent);
-                JunkDriverRegister.this.finish();
-
-            } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
-
-                Toast.makeText(JunkDriverRegister.this, "Oops! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(JunkDriverRegister.this,LoginActivity.class);
-                startActivity(intent);
-                JunkDriverRegister.this.finish();
+                CreateRequest.this.finish();
+            } else //if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful"))
+            {
+                Toast.makeText(CreateRequest.this, "User Creation Successful", Toast.LENGTH_LONG).show();
+                CreateRequest.this.finish();
             }
 
         }
     }
+
+
+
 }
