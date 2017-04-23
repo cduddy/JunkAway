@@ -18,7 +18,7 @@ public class JunkDriver_HomeScreen extends AppCompatActivity {
         Intent i = getIntent();
         user = (User)i.getSerializableExtra("User");
         TextView welcome = (TextView) findViewById(R.id.textWelcome);
-        welcome.setText("Welcome, " + user.get_fname() + "! Thanks for being a Driver!");
+        welcome.setText("Welcome, " + user.get_fname() + "!\n Driver Mode");
         Button mOpenJobs = (Button) findViewById(R.id.buttonOpenJobs);
         mOpenJobs.setOnClickListener(new View.OnClickListener() {
             @Override
