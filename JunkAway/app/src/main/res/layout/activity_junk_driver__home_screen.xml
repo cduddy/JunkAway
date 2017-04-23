@@ -32,6 +32,7 @@
             android:id="@+id/buttonOpenJobs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:elevation="0dp"
             android:text="View Available Jobs" />
 
@@ -39,12 +40,14 @@
             android:id="@+id/buttonAcceptedJobs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:text="View Your Current Jobs" />
 
         <Button
             android:id="@+id/buttonCompletedJobs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_green_dark"
             android:text="View Completed Jobs" />
 
         <Switch
