@@ -97,6 +97,7 @@ public class Past_Requests extends AppCompatActivity {
                 // sending pid to next activity
                 in.putExtra("Request", req);
                 in.putExtra("Calling Activity","Past Requests");
+                in.putExtra("User",user);
                 // starting new activity and expecting some response back
                 startActivity(in);
             }

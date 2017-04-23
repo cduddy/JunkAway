@@ -95,6 +95,7 @@ public class Open_Jobs extends AppCompatActivity {
                 // sending pid to next activity
                 in.putExtra("Request", req);
                 in.putExtra("Calling Activity","Open Jobs");
+                in.putExtra("User",user);
                 // starting new activity and expecting some response back
                 startActivity(in);
             }
@@ -263,7 +264,7 @@ public class Open_Jobs extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(Open_Jobs.this, "Got Requests", Toast.LENGTH_LONG).show();
+                Toast.makeText(Open_Jobs.this, "Got Available Jobs", Toast.LENGTH_LONG).show();
                 String[] requests = result.split("!");
                 String[] split;
                 String[][] requestssplit = new String[requests.length][11];

@@ -60,6 +60,7 @@ public class Active_Requests extends AppCompatActivity {
     private TextView nothingfound;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
+    String email;
 
     ArrayList<Request> arrayOfRequests=new ArrayList<Request>();
     RequestAdapter adapter;
@@ -73,7 +74,7 @@ public class Active_Requests extends AppCompatActivity {
         Intent i = getIntent();
         user = (User)i.getSerializableExtra("User");
         // Loading products in Background Thread
-        String email = user.get_email();
+        email = user.get_email();
         nothingfound = (TextView) findViewById(R.id.nothingFoundMSG);
         mProgressView = findViewById(R.id.request_progress);
 
@@ -95,13 +96,26 @@ public class Active_Requests extends AppCompatActivity {
                 // sending pid to next activity
                 in.putExtra("Request", req);
                 in.putExtra("Calling Activity","Active Requests");
+                in.putExtra("User",user);
                 // starting new activity and expecting some response back
-                startActivity(in);
+                startActivityForResult(in,100);
             }
         });
 
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 100) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+                new AsyncGetRequests().execute(email);
+                // Do something with the contact here (bigger example below)
+            }
+        }
+    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
@@ -139,7 +153,7 @@ public class Active_Requests extends AppCompatActivity {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-           // mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            // mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             //mForgotCreate.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }

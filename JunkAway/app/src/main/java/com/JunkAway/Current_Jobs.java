@@ -95,6 +95,7 @@ public class Current_Jobs extends AppCompatActivity {
                 // sending pid to next activity
                 in.putExtra("Request", req);
                 in.putExtra("Calling Activity","Current Jobs");
+                in.putExtra("User",user);
                 // starting new activity and expecting some response back
                 startActivity(in);
             }
@@ -168,7 +169,7 @@ public class Current_Jobs extends AppCompatActivity {
                 //String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
                 //System.out.print(ip);
                 // Enter URL address where your php file resides
-                url = new URL("https://people.eecs.ku.edu/~cduddy/JunkAway/OpenJobs.php");
+                url = new URL("https://people.eecs.ku.edu/~cduddy/JunkAway/AcceptedJobs.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

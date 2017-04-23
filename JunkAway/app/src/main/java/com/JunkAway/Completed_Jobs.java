@@ -93,6 +93,7 @@ public class Completed_Jobs extends AppCompatActivity {
                 // sending pid to next activity
                 in.putExtra("Request", req);
                 in.putExtra("Calling Activity","Completed Jobs");
+                in.putExtra("User",user);
                 // starting new activity and expecting some response back
                 startActivity(in);
             }
