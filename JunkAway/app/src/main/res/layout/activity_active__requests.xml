@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/nothingFoundMSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="18sp"
+        android:text="No Active Requests Found"
+        android:textSize="24sp"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/request_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/RequestList"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:layout_marginRight="8dp"
+        android:visibility="visible"/>
+</LinearLayout>

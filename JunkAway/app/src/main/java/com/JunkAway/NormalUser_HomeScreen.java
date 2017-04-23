@@ -32,7 +32,9 @@ public class NormalUser_HomeScreen extends AppCompatActivity {
         mViewRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //createUser();
+                Intent intent = new Intent(NormalUser_HomeScreen.this,Active_Requests.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
             }
         });
         getSupportActionBar().hide();
@@ -40,7 +42,9 @@ public class NormalUser_HomeScreen extends AppCompatActivity {
         mCompletedRequests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //forgotPassword();
+                Intent intent = new Intent(NormalUser_HomeScreen.this,Past_Requests.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
             }
         });
         Switch mDriverModeToggle = (Switch) findViewById(R.id.switchToggleHomeScreen);

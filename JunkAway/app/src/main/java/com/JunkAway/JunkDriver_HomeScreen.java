@@ -23,14 +23,18 @@ public class JunkDriver_HomeScreen extends AppCompatActivity {
         mOpenJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attemptLogin();
+                Intent intent = new Intent(JunkDriver_HomeScreen.this,Open_Jobs.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
             }
         });
         Button mAcceptedJobs = (Button) findViewById(R.id.buttonAcceptedJobs);
         mAcceptedJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //createUser();
+                Intent intent = new Intent(JunkDriver_HomeScreen.this,Current_Jobs.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
             }
         });
         getSupportActionBar().hide();
@@ -38,7 +42,9 @@ public class JunkDriver_HomeScreen extends AppCompatActivity {
         mCompletedJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //forgotPassword();
+                Intent intent = new Intent(JunkDriver_HomeScreen.this,Completed_Jobs.class);
+                intent.putExtra("User",user);
+                startActivity(intent);
             }
         });
         Switch mDriverModeToggle = (Switch) findViewById(R.id.switchToggleHomeScreen);

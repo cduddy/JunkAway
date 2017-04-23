@@ -30,7 +30,13 @@
         <activity android:name=".JunkDriverRegister" />
         <activity android:name=".JunkDriver_HomeScreen" />
         <activity android:name=".NormalUser_HomeScreen" />
-        <activity android:name=".CreateRequest"></activity>
+        <activity android:name=".CreateRequest" />
+        <activity android:name=".Active_Requests" />
+        <activity android:name=".ViewRequest" />
+        <activity android:name=".Past_Requests" />
+        <activity android:name=".Open_Jobs" />
+        <activity android:name=".Current_Jobs" />
+        <activity android:name=".Completed_Jobs"></activity>
     </application>
 
 </manifest>
