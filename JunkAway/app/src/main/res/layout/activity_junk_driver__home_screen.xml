@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.10"
             android:text="Driver View Mode"
+            android:thumbTint="@android:color/holo_green_dark"
             android:trackTint="@android:color/holo_green_dark" />
     </LinearLayout>
 
