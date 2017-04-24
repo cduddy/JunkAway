@@ -60,7 +60,8 @@ public class Open_Jobs extends AppCompatActivity {
     private TextView nothingfound;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
-
+    String email;
+    ListView listView;
     ArrayList<Request> arrayOfRequests=new ArrayList<Request>();
     RequestAdapter adapter;
     // products JSONArray
@@ -73,13 +74,13 @@ public class Open_Jobs extends AppCompatActivity {
         Intent i = getIntent();
         user = (User)i.getSerializableExtra("User");
         // Loading products in Background Thread
-        String email = user.get_email();
+        email = user.get_email();
         nothingfound = (TextView) findViewById(R.id.nothingFoundMSG);
         mProgressView = findViewById(R.id.request_progress);
 
         adapter = new RequestAdapter(this,arrayOfRequests);
         new AsyncGetRequests().execute(email);
-        ListView listView = (ListView) findViewById(R.id.RequestList);
+        listView = (ListView) findViewById(R.id.RequestList);
         listView.setAdapter(adapter);
         //nothingfound.setText(Integer.toString(listView.getCount()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,10 +98,23 @@ public class Open_Jobs extends AppCompatActivity {
                 in.putExtra("Calling Activity","Open Jobs");
                 in.putExtra("User",user);
                 // starting new activity and expecting some response back
-                startActivity(in);
+                startActivityForResult(in,100);
             }
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        // The user picked a contact.
+        // The Intent's data Uri identifies which contact was selected.
+        if (resultCode == 1) {
+            new AsyncGetRequests().execute(email);
+            arrayOfRequests.clear();
+            listView.setAdapter(null);
+            listView.setAdapter(adapter);
+        }
+        // Do something with the contact here (bigger example below)
     }
 
 
@@ -264,7 +278,7 @@ public class Open_Jobs extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(Open_Jobs.this, "Got Available Jobs", Toast.LENGTH_LONG).show();
+                Toast.makeText(Open_Jobs.this, "Retrieved Available Jobs", Toast.LENGTH_LONG).show();
                 String[] requests = result.split("!");
                 String[] split;
                 String[][] requestssplit = new String[requests.length][11];

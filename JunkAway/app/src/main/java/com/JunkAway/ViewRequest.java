@@ -3,6 +3,7 @@ package com.JunkAway;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -238,12 +239,18 @@ public class ViewRequest extends AppCompatActivity {
                 Toast.makeText(ViewRequest.this, "Job Marked As Completed", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(1,returnIntent);//returning a 1 means the listview needs to update
                 ViewRequest.this.finish();
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
                 Toast.makeText(ViewRequest.this, "Oops! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(0,returnIntent);
                 ViewRequest.this.finish();
             }else
             {
@@ -251,6 +258,9 @@ public class ViewRequest extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
                 Toast.makeText(ViewRequest.this,"Job not completed. Try again." , Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(0,returnIntent);
                 ViewRequest.this.finish();
             }
         }
@@ -368,12 +378,18 @@ public class ViewRequest extends AppCompatActivity {
                 Toast.makeText(ViewRequest.this, "Job Accepted", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(1,returnIntent);
                 ViewRequest.this.finish();
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
                 Toast.makeText(ViewRequest.this, "Oops! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(0,returnIntent);
                 ViewRequest.this.finish();
             }else
             {
@@ -381,6 +397,9 @@ public class ViewRequest extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
                 Toast.makeText(ViewRequest.this,"Job is no longer available. Sorry." , Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(1,returnIntent);//1 means listview must update
                 ViewRequest.this.finish();
             }
         }
@@ -497,12 +516,18 @@ public class ViewRequest extends AppCompatActivity {
                 Toast.makeText(ViewRequest.this, "Request Cancelled", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(1,returnIntent);
                 ViewRequest.this.finish();
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
                 Toast.makeText(ViewRequest.this, "Oops! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(ViewRequest.this,NormalUser_HomeScreen.class);
                 //startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(0,returnIntent);
                 ViewRequest.this.finish();
             }else
             {
@@ -510,7 +535,11 @@ public class ViewRequest extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(ViewRequest.this, result, Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewRequest.this, "Request Not Cancelled. Try Again.", Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result",result);
+                setResult(0,returnIntent);
+                ViewRequest.this.finish();
             }
         }
 

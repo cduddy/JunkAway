@@ -5,16 +5,33 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/nothingFoundMSG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:lineSpacingExtra="18sp"
-        android:text="No Active Requests Found"
-        android:textSize="24sp"
-        android:visibility="invisible"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/RequestList"
+            android:layout_width="368dp"
+            android:layout_height="495dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/nothingFoundMSG"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/RequestList"
+            android:gravity="center_vertical|center_horizontal"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="18sp"
+            android:text="No Results Found"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/request_progress"
@@ -24,10 +41,4 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/RequestList"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        android:layout_marginRight="8dp"
-        android:visibility="visible"/>
 </LinearLayout>

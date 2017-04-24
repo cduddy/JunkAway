@@ -48,12 +48,6 @@ public class Active_Requests extends AppCompatActivity {
     // Creating JSON Parser object
     ArrayList<HashMap<String, String>> requestsList;
 
-    // url to get all products list
-    private static String url_requests = "https://people.eecs.ku.edu/~cduddy/JunkAway/PullActiveRequests.php";
-
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "requests";
 
     private Request request;
     private User user;
@@ -61,7 +55,7 @@ public class Active_Requests extends AppCompatActivity {
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     String email;
-
+    ListView listView;
     ArrayList<Request> arrayOfRequests=new ArrayList<Request>();
     RequestAdapter adapter;
     // products JSONArray
@@ -80,7 +74,7 @@ public class Active_Requests extends AppCompatActivity {
 
         adapter = new RequestAdapter(this,arrayOfRequests);
         new AsyncGetRequests().execute(email);
-        ListView listView = (ListView) findViewById(R.id.RequestList);
+        listView = (ListView) findViewById(R.id.RequestList);
         listView.setAdapter(adapter);
         //nothingfound.setText(Integer.toString(listView.getCount()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,15 +100,16 @@ public class Active_Requests extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        if (requestCode == 100) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
-                new AsyncGetRequests().execute(email);
-                // Do something with the contact here (bigger example below)
-            }
+        if(resultCode==1) {
+            new AsyncGetRequests().execute(email);
+            arrayOfRequests.clear();
+            listView.setAdapter(null);
+            listView.setAdapter(adapter);
         }
+                // Do something with the contact here (bigger example below)
+
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -277,7 +272,7 @@ public class Active_Requests extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(Active_Requests.this, "Got Requests", Toast.LENGTH_LONG).show();
+                Toast.makeText(Active_Requests.this, "Retrieved Active Requests", Toast.LENGTH_LONG).show();
                 String[] requests = result.split("!");
                 String[] split;
                 String[][] requestssplit = new String[requests.length][11];

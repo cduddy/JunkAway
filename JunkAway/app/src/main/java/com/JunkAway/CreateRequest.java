@@ -321,7 +321,7 @@ public class CreateRequest extends AppCompatActivity {
                 CreateRequest.this.finish();
             } else //if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful"))
             {
-                Toast.makeText(CreateRequest.this, "User Creation Successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateRequest.this, "Request Created Successfully", Toast.LENGTH_LONG).show();
                 CreateRequest.this.finish();
             }
 

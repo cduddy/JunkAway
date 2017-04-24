@@ -44,6 +44,7 @@ public class Request implements Serializable {
         Description=Desc;
         Pickup=PickupAdd;
         DropOff=DropOffAdd;
+        email=user;
         numItems=Integer.parseInt(ItemCount);
         price=Double.parseDouble(Cost);
         DriverName=Driver;

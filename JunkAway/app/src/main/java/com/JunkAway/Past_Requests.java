@@ -266,7 +266,7 @@ public class Past_Requests extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(Past_Requests.this, "Got Requests", Toast.LENGTH_LONG).show();
+                Toast.makeText(Past_Requests.this, "Retirved Closed/Cancelled Requests", Toast.LENGTH_LONG).show();
                 String[] requests = result.split("!");
                 String[] split;
                 String[][] requestssplit = new String[requests.length][11];

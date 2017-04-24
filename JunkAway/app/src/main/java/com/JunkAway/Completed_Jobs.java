@@ -262,7 +262,7 @@ public class Completed_Jobs extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Toast.makeText(Completed_Jobs.this, "Retrieved Jobs", Toast.LENGTH_LONG).show();
+                Toast.makeText(Completed_Jobs.this, "Retrieved Previous Jobs", Toast.LENGTH_LONG).show();
                 String[] requests = result.split("!");
                 String[] split;
                 String[][] requestssplit = new String[requests.length][11];
@@ -272,7 +272,8 @@ public class Completed_Jobs extends AppCompatActivity {
                         requestssplit[i]=requests[i].split(":");
                         Request newREQ= new Request(requestssplit[i][0],requestssplit[i][1],requestssplit[i][2],requestssplit[i][3],requestssplit[i][4],requestssplit[i][5],requestssplit[i][6],requestssplit[i][7],requestssplit[i][8],requestssplit[i][9],requestssplit[i][10]);
                         arrayOfRequests.add(newREQ);
-                        Log.d("Request Created:",newREQ.getDescription());
+                        Log.d("Request Created:",result);
+                        Log.d("Request Created:",requestssplit[i][1]);
                         Log.d("Array Length:",arrayOfRequests.toString());
                     }
                     adapter.notifyDataSetChanged();
