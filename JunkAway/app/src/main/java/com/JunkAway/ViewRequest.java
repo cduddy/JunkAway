@@ -6,6 +6,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -29,6 +31,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class ViewRequest extends AppCompatActivity {
     private Request request;
@@ -112,6 +115,37 @@ public class ViewRequest extends AppCompatActivity {
             }
         });
 
+        final TextView pickUpLink = (TextView) findViewById(R.id.PickupAdd);
+        pickUpLink.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri location = Uri.parse("geo:0,0?q=" + request.getPickupAddress());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                PackageManager packageManager = getPackageManager();
+                List activities = packageManager.queryIntentActivities(mapIntent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+                boolean isIntentSafe = activities.size() > 0;
+                if (isIntentSafe) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
+
+        final TextView dropOffLink = (TextView) findViewById(R.id.dropoffAdd);
+        dropOffLink.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri location = Uri.parse("geo:0,0?q=" + request.getDropOffAddress());
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                PackageManager packageManager = getPackageManager();
+                List activities = packageManager.queryIntentActivities(mapIntent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+                boolean isIntentSafe = activities.size() > 0;
+                if (isIntentSafe) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
     }
     private void performTask()
     {
