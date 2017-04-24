@@ -9,15 +9,18 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.Formatter;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -43,12 +46,16 @@ public class CreateRequest extends AppCompatActivity {
     private View mProgressView;
     private View mNumItemsView;
     private User user;
+    private TextInputLayout pickuplayout;
+    private TextInputLayout dropofflayout;
     public static final int CONNECTION_TIMEOUT=10000;
     public static final int READ_TIMEOUT=15000;
     String pickup;
     String dropoff;
     String description;
     String date;
+    TextView mPickupTextView;
+    TextView mDropoffTextView;
     double price;
     int numItems;
     @Override
@@ -59,7 +66,18 @@ public class CreateRequest extends AppCompatActivity {
         user = (User)i.getSerializableExtra("User");
         getSupportActionBar().hide();
         mDropOffLocation = (EditText) findViewById(R.id.dropoffLocation);
+        mPickupTextView = (TextView) findViewById(R.id.textViewpickup);
+        mDropoffTextView = (TextView) findViewById(R.id.textViewdropoff);
+        mDropoffTextView.setVisibility(View.VISIBLE);
+
         mPickupLocation = (EditText) findViewById(R.id.pickupLocation);
+        mPickupLocation.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean  onTouch(View v, MotionEvent event) {
+                mPickupTextView.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
         mNumItems = (Spinner) findViewById(R.id.numItems);
         mPrice = (EditText) findViewById(R.id.price);
         mDescription = (EditText) findViewById(R.id.description);
