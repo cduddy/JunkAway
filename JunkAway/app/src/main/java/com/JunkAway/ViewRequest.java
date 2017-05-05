@@ -1,3 +1,8 @@
+//written by Collin Duddy and Wes Adams
+//tested by Collin Duddy and Wes Adams
+//Debugged by all members
+
+
 package com.JunkAway;
 
 import android.animation.Animator;
@@ -34,8 +39,8 @@ import java.net.URL;
 import java.util.List;
 
 public class ViewRequest extends AppCompatActivity {
-    private Request request;
     private TextView mReqID;
+    private Request request;
     private TextView mUser;
     private TextView mPickupAdd;
     private TextView mDropOffAdd;
@@ -115,11 +120,11 @@ public class ViewRequest extends AppCompatActivity {
             }
         });
 
-        final TextView pickUpLink = (TextView) findViewById(R.id.PickupAdd);
+        final TextView pickUpLink = (TextView) findViewById(R.id.PickupAdd);                    //written by Wes Adams
         pickUpLink.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Uri location = Uri.parse("geo:0,0?q=" + request.getPickupAddress());
+            public void onClick(View v) {                                                 //tested by Wes Adams
+                Uri location = Uri.parse("geo:0,0?q=" + request.getPickupAddress());            //Debugged by Wes Adams
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 PackageManager packageManager = getPackageManager();
                 List activities = packageManager.queryIntentActivities(mapIntent,
@@ -131,11 +136,11 @@ public class ViewRequest extends AppCompatActivity {
             }
         });
 
-        final TextView dropOffLink = (TextView) findViewById(R.id.dropoffAdd);
+        final TextView dropOffLink = (TextView) findViewById(R.id.dropoffAdd);                  //written by Wes Adams
         dropOffLink.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Uri location = Uri.parse("geo:0,0?q=" + request.getDropOffAddress());
+            public void onClick(View v) {                                               //tested by Wes Adams
+                Uri location = Uri.parse("geo:0,0?q=" + request.getDropOffAddress());           //Debugged by Wes Adams
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 PackageManager packageManager = getPackageManager();
                 List activities = packageManager.queryIntentActivities(mapIntent,

@@ -1,3 +1,7 @@
+//written by Collin Duddy
+//tested by Collin Duddy
+//Debugged by all members
+
 package com.JunkAway;
 
 /**
